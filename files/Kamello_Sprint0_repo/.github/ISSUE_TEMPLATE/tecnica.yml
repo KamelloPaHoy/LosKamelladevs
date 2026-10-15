@@ -1,0 +1,30 @@
+name: Tarea técnica o investigación
+description: Trabajo necesario pero invisible para el usuario (TEC) o una investigación corta (INV)
+title: "TEC-XX: "
+labels: ["tecnica"]
+body:
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué hay que hacer
+      description: En una o dos frases. Si es una investigación, cambia el título a INV-XX y la etiqueta a investigacion.
+    validations:
+      required: true
+  - type: textarea
+    id: terminado
+    attributes:
+      label: Cómo sabremos que está terminada
+      value: |
+        - [ ] ...
+    validations:
+      required: true
+  - type: dropdown
+    id: prioridad
+    attributes:
+      label: Prioridad (MoSCoW)
+      options:
+        - Must
+        - Should
+        - Could
+    validations:
+      required: true
