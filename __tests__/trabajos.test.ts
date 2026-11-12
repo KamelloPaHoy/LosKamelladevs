@@ -21,6 +21,7 @@ const trabajo = (id: string, barrio: string, creadoEn: string): Trabajo => ({
   cuando: 'Hoy',
   estado: 'Disponible',
   publicadoPor: { uid: 'u', nombre: 'Persona', promedio: null, totalCalificaciones: 0 },
+  trabajador: null,
   creadoEn,
 });
 

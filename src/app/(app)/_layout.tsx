@@ -18,6 +18,8 @@ export default function AppLayout() {
       <Stack.Screen name="publicar" options={{ title: 'Publicar un trabajo' }} />
       <Stack.Screen name="trabajo/[id]" options={{ title: 'Detalle del trabajo' }} />
       <Stack.Screen name="calificar/[id]" options={{ title: 'Calificar' }} />
+      <Stack.Screen name="mis-trabajos" options={{ title: 'Mis trabajos' }} />
+      <Stack.Screen name="chat/[id]" options={{ title: 'Chat' }} />
     </Stack>
   );
 }

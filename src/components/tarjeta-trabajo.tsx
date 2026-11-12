@@ -10,14 +10,16 @@ type Props = {
   trabajo: Trabajo;
   cercano: boolean;
   alPresionar: () => void;
+  /** En «Mis trabajos»: el estado como lo entiende esa persona, en lugar de «para cuándo». */
+  estadoTexto?: string;
 };
 
-export function TarjetaTrabajo({ trabajo, cercano, alPresionar }: Props) {
+export function TarjetaTrabajo({ trabajo, cercano, alPresionar, estadoTexto }: Props) {
   const paleta = usePaleta();
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${trabajo.titulo}. ${formatearPrecio(trabajo.precio)}. ${textoCuando(trabajo.cuando)}. Barrio ${trabajo.barrio}${cercano ? ', en tu barrio' : ''}.`}
+      accessibilityLabel={`${trabajo.titulo}. ${formatearPrecio(trabajo.precio)}. ${estadoTexto ?? textoCuando(trabajo.cuando)}. Barrio ${trabajo.barrio}${cercano ? ', en tu barrio' : ''}.`}
       onPress={alPresionar}
       style={({ pressed }) => [
         estilos.tarjeta,
@@ -29,9 +31,13 @@ export function TarjetaTrabajo({ trabajo, cercano, alPresionar }: Props) {
       ]}>
       <View style={estilos.fila}>
         <Etiqueta texto={trabajo.categoria} />
-        <Text style={[estilos.cuando, { color: paleta.textoSecundario }]}>
-          {textoCuando(trabajo.cuando)}
-        </Text>
+        {estadoTexto ? (
+          <EstadoChip texto={estadoTexto} />
+        ) : (
+          <Text style={[estilos.cuando, { color: paleta.textoSecundario }]}>
+            {textoCuando(trabajo.cuando)}
+          </Text>
+        )}
       </View>
       <Text style={[estilos.titulo, { color: paleta.texto }]}>{trabajo.titulo}</Text>
       <View style={estilos.fila}>
@@ -51,6 +57,19 @@ export function TarjetaTrabajo({ trabajo, cercano, alPresionar }: Props) {
         <Reputacion persona={trabajo.publicadoPor} />
       </View>
     </Pressable>
+  );
+}
+
+/** Estado del trabajo con un color que se distingue de un vistazo. */
+export function EstadoChip({ texto }: { texto: string }) {
+  const paleta = usePaleta();
+  const llamativo = texto === '¡Te eligieron!' || texto === 'En curso';
+  const apagado = texto === 'Terminado' || texto === 'Cancelado';
+  const color = llamativo ? paleta.exito : apagado ? paleta.textoSecundario : paleta.primario;
+  return (
+    <View style={[estilos.estado, { borderColor: color }]}>
+      <Text style={[estilos.textoEstado, { color }]}>{texto}</Text>
+    </View>
   );
 }
 
@@ -85,5 +104,7 @@ const estilos = StyleSheet.create({
   },
   autor: { fontSize: 14, flexShrink: 1 },
   etiqueta: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
+  estado: { borderRadius: 12, borderWidth: 1.5, paddingHorizontal: 10, paddingVertical: 3 },
+  textoEstado: { fontSize: 13, fontWeight: '700' },
   textoEtiqueta: { fontSize: 13, fontWeight: '600' },
 });

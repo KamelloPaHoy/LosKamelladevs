@@ -77,11 +77,12 @@ export function usePublicarTrabajo() {
     setPublicando(true);
     setErrorGeneral(null);
     try {
-      await servicioTrabajos.publicar(
+      const publicado = await servicioTrabajos.publicar(
         { uid: usuario.uid, nombre: perfil.nombre, promedio: null, totalCalificaciones: 0 },
         nuevo,
       );
-      router.back();
+      // Va directo al detalle, donde se ven llegar los postulados.
+      router.replace({ pathname: '/trabajo/[id]', params: { id: publicado.id } });
     } catch (e) {
       setErrorGeneral(mensajeDeError(e));
       setPublicando(false);

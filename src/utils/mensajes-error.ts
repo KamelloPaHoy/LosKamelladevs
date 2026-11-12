@@ -15,6 +15,8 @@ const MensajesTrabajos: Record<string, string> = {
   'trabajo-no-disponible': 'Este trabajo ya no está disponible. Alguien más lo tomó o lo cancelaron.',
   'trabajo-propio': 'No puedes postularte a un trabajo que publicaste tú.',
   'estrellas-invalidas': 'Elige de 1 a 5 estrellas.',
+  'accion-no-permitida': 'Esto ya no se puede hacer: el trabajo cambió de estado. Vuelve a abrirlo.',
+  'mensaje-invalido': 'Escribe un mensaje de máximo 500 caracteres.',
 };
 
 export function mensajeDeError(error: unknown): string {

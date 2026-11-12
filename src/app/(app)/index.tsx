@@ -36,6 +36,12 @@ export default function Inicio() {
           <Boton titulo="Salir" variante="texto" alPresionar={cerrarSesion} />
         </View>
 
+        <Boton
+          titulo="Mis trabajos"
+          variante="secundario"
+          alPresionar={() => router.push('/mis-trabajos')}
+        />
+
         {vm.pendientes.map((p) => (
           <View
             key={p.trabajo.id}

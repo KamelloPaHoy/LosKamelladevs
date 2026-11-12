@@ -99,3 +99,10 @@ export function barrioActualSimulado(): string | null {
   if (!usuarioActual) return null;
   return perfiles.get(usuarioActual.uid)?.barrio ?? null;
 }
+
+/** Solo para el modo de prueba: quién tiene la sesión abierta, con su nombre y celular. */
+export function usuarioActualSimulado(): { uid: string; nombre: string; celular: string } | null {
+  if (!usuarioActual) return null;
+  const perfil = perfiles.get(usuarioActual.uid);
+  return { uid: usuarioActual.uid, nombre: perfil?.nombre ?? 'Tú', celular: usuarioActual.celular };
+}
